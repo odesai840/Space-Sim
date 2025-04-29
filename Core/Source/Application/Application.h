@@ -1,4 +1,5 @@
-#pragma once
+#ifndef APPLICATION_H
+#define APPLICATION_H
 
 #include <string>
 #include <memory>
@@ -42,6 +43,19 @@ private:
     
     float m_GravityStrength = 1.0f;
     float m_TimeScale = 1.0f;
+    bool m_PauseSimulation = false;
+    float m_NewPlanetDistance = 8.0f;
+    float m_NewPlanetAngle = 0.0f;
+    float m_NewPlanetRadius = 0.3f;
+    glm::vec4 m_NewPlanetColor = glm::vec4(0.5f, 0.5f, 0.9f, 1.0f);
+    
+    struct CameraPreset {
+        float distance;
+        float rotationX;
+        float rotationY;
+        std::string name;
+    };
+    std::vector<CameraPreset> m_CameraPresets;
     
     std::unique_ptr<GravitySimulation> m_Simulation;
     
@@ -54,3 +68,5 @@ private:
 };
 
 }
+
+#endif

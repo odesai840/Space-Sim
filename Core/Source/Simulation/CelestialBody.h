@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CELESTIAL_BODY_H
+#define CELESTIAL_BODY_H
 
 #include <memory>
 #include <vector>
@@ -39,3 +40,5 @@ private:
 };
 
 }
+
+#endif
