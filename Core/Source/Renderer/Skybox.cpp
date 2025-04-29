@@ -20,9 +20,7 @@ Skybox::~Skybox()
 
 void Skybox::Init(const std::vector<std::string>& faces)
 {
-    // Skybox vertices (cube)
-    float skyboxVertices[] = {
-        // positions          
+    float skyboxVertices[] = {      
         -1.0f,  1.0f, -1.0f,
         -1.0f, -1.0f, -1.0f,
          1.0f, -1.0f, -1.0f,
@@ -66,7 +64,6 @@ void Skybox::Init(const std::vector<std::string>& faces)
          1.0f, -1.0f,  1.0f
     };
     
-    // Create VAO, VBO
     glGenVertexArrays(1, &m_VAO);
     glGenBuffers(1, &m_VBO);
     
@@ -79,50 +76,15 @@ void Skybox::Init(const std::vector<std::string>& faces)
     
     glBindVertexArray(0);
     
-    // Load cubemap textures
     LoadCubemap(faces);
     
-    // Create shader
-    const std::string vertexShaderSrc = R"(
-        #version 460 core
-        layout (location = 0) in vec3 aPos;
-        
-        uniform mat4 u_View;
-        uniform mat4 u_Projection;
-        
-        out vec3 TexCoords;
-        
-        void main()
-        {
-            TexCoords = aPos;
-            vec4 pos = u_Projection * u_View * vec4(aPos, 1.0);
-            gl_Position = pos.xyww; // Ensure skybox is always at maximum depth
-        }
-    )";
-    
-    const std::string fragmentShaderSrc = R"(
-        #version 460 core
-        in vec3 TexCoords;
-        
-        uniform samplerCube u_Skybox;
-        
-        out vec4 FragColor;
-        
-        void main()
-        {    
-            FragColor = texture(u_Skybox, TexCoords);
-        }
-    )";
-    
-    m_Shader->Load(vertexShaderSrc, fragmentShaderSrc);
+    m_Shader->LoadFromFile("../Shaders/Skybox.vert", "../Shaders/Skybox.frag");
 }
 
 void Skybox::Draw(const glm::mat4& view, const glm::mat4& projection)
 {
-    // Remove translation from view matrix for skybox
     glm::mat4 skyboxView = glm::mat4(glm::mat3(view));
     
-    // Disable depth writing
     glDepthFunc(GL_LEQUAL);
     
     m_Shader->Bind();
@@ -138,7 +100,6 @@ void Skybox::Draw(const glm::mat4& view, const glm::mat4& projection)
     
     glBindVertexArray(0);
     
-    // Reset depth function
     glDepthFunc(GL_LESS);
 }
 

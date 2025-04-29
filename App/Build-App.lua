@@ -1,4 +1,4 @@
-project "Editor"
+project "SpaceSim"
     kind "ConsoleApp"
     language "C++"
     cppdialect "C++20"
@@ -30,7 +30,9 @@ project "Editor"
 
     postbuildcommands
     {
-        "{COPYDIR} %{wks.location}Assets ../Binaries/" .. OutputDir .. "/Assets"
+        "{COPYDIR} %{wks.location}Assets ../Binaries/" .. OutputDir .. "/Assets",
+        "{COPYDIR} %{wks.location}Shaders ../Binaries/" .. OutputDir .. "/Shaders",
+        "{COPYFILE} imgui.ini %{cfg.targetdir}"
     }
 
     filter "system:windows"

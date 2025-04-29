@@ -7,7 +7,9 @@ project "Core"
 
     files {
         "Source/**.h",
-        "Source/**.cpp"
+        "Source/**.cpp",
+        "../Shaders/**.vert",
+        "../Shaders/**.frag"
     }
 
     includedirs {

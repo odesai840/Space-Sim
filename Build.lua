@@ -19,6 +19,6 @@ group "Core"
 	include "Core/Build-Core.lua"
 group ""
 
-group "Editor"
-   include "Editor/Build-Editor.lua"
+group "App"
+   include "App/Build-App.lua"
 group ""
