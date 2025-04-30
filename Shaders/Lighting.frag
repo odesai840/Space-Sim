@@ -78,7 +78,6 @@ void main()
             pow(surfaceDetail, 2.0)
         );
         
-        // Apply base color with temperature variations
         vec3 sunColor = mix(baseColor, tempColor, 0.75);
         
         float pulseIntensity = sin(u_Time * 0.4) * 0.07 + 1.0;
